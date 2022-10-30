@@ -7,6 +7,15 @@ class Player():
         self.is_human = is_human
         self.create_field()
 
+    def __str__(self):
+        if self._is_human:
+            return f'It is unique player'
+        else:
+            return f'It is PC'
+
+    def __eq__(self, other):
+        return self.name == other.name and self.is_human == other.is_human
+
     @property
     def is_human(self):
         return self._is_human

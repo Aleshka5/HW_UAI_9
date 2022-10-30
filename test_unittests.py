@@ -38,3 +38,9 @@ class TestLoto(unittest.TestCase):
             self.player1.is_human = 'True'
         with self.assertRaises(ValueError):
             self.player1.is_human = 'False'
+
+    def test_magic_functions(self):
+        self.assertEqual(str(self.player1), 'It is unique player')
+        self.assertEqual(str(self.player2), 'It is PC')
+        #self.assertEqual(self.player1 == self.player1, True)
+        self.assertEqual(self.player1 != self.player2, True)

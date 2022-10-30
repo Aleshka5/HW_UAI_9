@@ -7,6 +7,17 @@ class Player():
         self.is_human = is_human
         self.create_field()
 
+    @property
+    def is_human(self):
+        return self._is_human
+
+    @is_human.setter
+    def is_human(self,is_human):
+        if isinstance(is_human,bool):
+            self._is_human = is_human
+        else:
+            raise (ValueError)
+
     def create_field(self):
         # Создание первой строки
         first_str = list(set(np.random.choice([1,2,3,4,5,6,7,8,9],size = 5)))
@@ -51,13 +62,12 @@ class Player():
         print('*'*size[1]*4)
 
     def fill_field(self,num):
+        # Заполнение хода
         for i in np.where(np.array(list(map(int,self.my_field))) == num)[0]:
             self.my_field[i] = '0'
 
-        if np.where(np.array(list(map(int, self.my_field))) == 0)[0].shape[0] == 27:
-            return True
-        else:
-            return False
+        # Проверка на конец игры
+        return True if np.where(np.array(list(map(int, self.my_field))) == 0)[0].shape[0] == 27 else False
 
 def _user_int_input_(ot = 1, do = 100, entrance_message = 'Ввод:'):
     correct_input = False
@@ -85,20 +95,15 @@ if __name__ == '__main__':
         for i in input_players.split(' '):
             if len(players_format) < count_players:
                 if i == 'Pl':
-                    players_format.append(1)
+                    players_format.append(True)
                 elif i == 'PC':
-                    players_format.append(0)
+                    players_format.append(False)
         count = len(players_format)
     print(players_format)
 
     players = []
     for i in range(len(players_format)):
         players.append(Player(i+1,players_format[i]))
-
-
-    #pl1 = Player(1,1)
-    #pl2 = Player(2,0)
-    #players = [pl1,pl2]
 
     for player in players:
         player.print_field()
